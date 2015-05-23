@@ -1,0 +1,322 @@
+
+#pragma once
+
+#include<sylvan_MACRO.hpp>
+
+#ifdef SHA2_USE_INTTYPES_H
+
+typedef uint8_t  sha2_byte;	/* Exactly 1 byte */
+typedef uint32_t sha2_word32;	/* Exactly 4 bytes */
+typedef uint64_t sha2_word64;	/* Exactly 8 bytes */
+
+#else /* SHA2_USE_INTTYPES_H */
+
+typedef u_int8_t  sha2_byte;	/* Exactly 1 byte */
+typedef u_int32_t sha2_word32;	/* Exactly 4 bytes */
+typedef u_int64_t sha2_word64;	/* Exactly 8 bytes */
+
+#endif /* SHA2_USE_INTTYPES_H */
+
+extern "C"
+{
+	/* ../src/barrier.c */
+	int barrier_wait(barrier_t *b);
+	void barrier_init(barrier_t *b, unsigned count);
+	void barrier_destroy(barrier_t *b);
+	/* ../src/getrss.c */
+	size_t getPeakRSS(void);
+	size_t getCurrentRSS(void);
+	/* ../src/lace.c */
+	WorkerP *lace_get_worker(void);
+	Task *lace_get_head(WorkerP *self);
+	size_t lace_workers(void);
+	size_t lace_default_stacksize(void);
+	void lace_init_worker(int worker, size_t dq_size);
+	void lace_suspend(void);
+	void lace_resume(void);
+	void lace_steal_random_WRAP(WorkerP *w, Task *__dq_head, TD_lace_steal_random *t);
+	void lace_steal_random_CALL(WorkerP *w, Task *__dq_head);
+	void lace_steal_random_loop_WRAP(WorkerP *w, Task *__dq_head, TD_lace_steal_random_loop *t);
+	void lace_steal_random_loop_CALL(WorkerP *w, Task *__dq_head, int *arg_1);
+	void lace_steal_loop_WRAP(WorkerP *w, Task *__dq_head, TD_lace_steal_loop *t);
+	void lace_steal_loop_CALL(WorkerP *w, Task *__dq_head, int *arg_1);
+	pthread_t lace_spawn_worker(int worker, size_t stacksize, void *(*fun)(void *), void *arg);
+	void lace_init(int n, size_t dqsize);
+	void lace_startup(size_t stacksize, lace_startup_cb cb, void *arg);
+	void lace_count_reset(void);
+	void lace_count_report_file(FILE *file);
+	void lace_exit(void);
+	void lace_exec_in_new_frame(WorkerP *__lace_worker, Task *__lace_dq_head, Task *root);
+	void lace_steal_loop_root_WRAP(WorkerP *w, Task *__dq_head, TD_lace_steal_loop_root *t);
+	void lace_steal_loop_root_CALL(WorkerP *w, Task *__dq_head, Task *arg_1, int *arg_2);
+	void lace_together_helper_WRAP(WorkerP *w, Task *__dq_head, TD_lace_together_helper *t);
+	void lace_together_helper_CALL(WorkerP *w, Task *__dq_head, Task *arg_1, volatile int *arg_2);
+	void lace_yield(WorkerP *__lace_worker, Task *__lace_dq_head);
+	void lace_do_together(WorkerP *__lace_worker, Task *__lace_dq_head, Task *t);
+	void lace_do_newframe(WorkerP *__lace_worker, Task *__lace_dq_head, Task *t);
+	/* ../src/llmsset.c */
+	uint64_t rehash16_mul(const void *key, const uint64_t seed);
+	uint64_t hash16_mul(const void *key);
+	void llmsset_init_worker_WRAP(WorkerP *w, Task *__dq_head, TD_llmsset_init_worker *t);
+	void llmsset_init_worker_CALL(WorkerP *w, Task *__dq_head, llmsset_t arg_1);
+	uint64_t llmsset_lookup(const llmsset_t dbs, const void *data);
+	llmsset_t llmsset_create(size_t initial_size, size_t max_size);
+	void llmsset_free(llmsset_t dbs);
+	void llmsset_clear_WRAP(WorkerP *w, Task *__dq_head, TD_llmsset_clear *t);
+	void llmsset_clear_CALL(WorkerP *w, Task *__dq_head, llmsset_t arg_1);
+	int llmsset_is_marked(const llmsset_t dbs, uint64_t index);
+	int llmsset_mark(const llmsset_t dbs, uint64_t index);
+	void llmsset_rehash_range_WRAP(WorkerP *w, Task *__dq_head, TD_llmsset_rehash_range *t);
+	void llmsset_rehash_range_CALL(WorkerP *w, Task *__dq_head, llmsset_t arg_1, size_t arg_2, size_t arg_3);
+	void llmsset_rehash_task_WRAP(WorkerP *w, Task *__dq_head, TD_llmsset_rehash_task *t);
+	void llmsset_rehash_task_CALL(WorkerP *w, Task *__dq_head, llmsset_t arg_1);
+	void llmsset_rehash_WRAP(WorkerP *w, Task *__dq_head, TD_llmsset_rehash *t);
+	void llmsset_rehash_CALL(WorkerP *w, Task *__dq_head, llmsset_t arg_1);
+	void llmsset_count_marked_range_WRAP(WorkerP *w, Task *__dq_head, TD_llmsset_count_marked_range *t);
+	size_t llmsset_count_marked_range_CALL(WorkerP *w, Task *__dq_head, llmsset_t arg_1, size_t arg_2, size_t arg_3);
+	void llmsset_count_marked_WRAP(WorkerP *w, Task *__dq_head, TD_llmsset_count_marked *t);
+	size_t llmsset_count_marked_CALL(WorkerP *w, Task *__dq_head, llmsset_t arg_1);
+	/* ../src/refs.c */
+	size_t refs_count(refs_table_t *tbl);
+	void refs_up(refs_table_t *tbl, uint64_t a);
+	void refs_down(refs_table_t *tbl, uint64_t a);
+	uint64_t *refs_iter(refs_table_t *tbl, size_t first, size_t end);
+	uint64_t refs_next(refs_table_t *tbl, uint64_t **_bucket, size_t end);
+	void refs_create(refs_table_t *tbl, size_t _refs_size);
+	void refs_free(refs_table_t *tbl);
+	/* ../src/sha2.c */
+	void SHA256_Init(SHA256_CTX *context);
+	void SHA256_Transform(SHA256_CTX *context, const sha2_word32 *data);
+	void SHA256_Update(SHA256_CTX *context, const sha2_byte *data, size_t len);
+	void SHA256_Final(sha2_byte digest[], SHA256_CTX *context);
+	char *SHA256_End(SHA256_CTX *context, char buffer[]);
+	char *SHA256_Data(const sha2_byte *data, size_t len, char digest[(32 * 2 + 1)]);
+	void SHA512_Init(SHA512_CTX *context);
+	void SHA512_Transform(SHA512_CTX *context, const sha2_word64 *data);
+	void SHA512_Update(SHA512_CTX *context, const sha2_byte *data, size_t len);
+	void SHA512_Last(SHA512_CTX *context);
+	void SHA512_Final(sha2_byte digest[], SHA512_CTX *context);
+	char *SHA512_End(SHA512_CTX *context, char buffer[]);
+	char *SHA512_Data(const sha2_byte *data, size_t len, char digest[(64 * 2 + 1)]);
+	void SHA384_Init(SHA384_CTX *context);
+	void SHA384_Update(SHA384_CTX *context, const sha2_byte *data, size_t len);
+	void SHA384_Final(sha2_byte digest[], SHA384_CTX *context);
+	char *SHA384_End(SHA384_CTX *context, char buffer[]);
+	char *SHA384_Data(const sha2_byte *data, size_t len, char digest[(48 * 2 + 1)]);
+	/* ../src/sylvan_bdd.c */
+	void sylvan_gc_mark_rec_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_gc_mark_rec *t);
+	void sylvan_gc_mark_rec_CALL(WorkerP *w, Task *__dq_head, BDD arg_1);
+	BDD sylvan_ref(BDD a);
+	void sylvan_deref(BDD a);
+	size_t sylvan_count_refs(void);
+	void sylvan_gc_mark_external_refs_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_gc_mark_external_refs *t);
+	void sylvan_gc_mark_external_refs_CALL(WorkerP *w, Task *__dq_head);
+	void bdd_refs_mark_task_WRAP(WorkerP *w, Task *__dq_head, TD_bdd_refs_mark_task *t);
+	void bdd_refs_mark_task_CALL(WorkerP *w, Task *__dq_head);
+	void bdd_refs_mark_WRAP(WorkerP *w, Task *__dq_head, TD_bdd_refs_mark *t);
+	void bdd_refs_mark_CALL(WorkerP *w, Task *__dq_head);
+	void bdd_refs_init_task_WRAP(WorkerP *w, Task *__dq_head, TD_bdd_refs_init_task *t);
+	void bdd_refs_init_task_CALL(WorkerP *w, Task *__dq_head);
+	void bdd_refs_init_WRAP(WorkerP *w, Task *__dq_head, TD_bdd_refs_init *t);
+	void bdd_refs_init_CALL(WorkerP *w, Task *__dq_head);
+	void sylvan_init_bdd(int _granularity);
+	void sylvan_reset_counters(void);
+	void sylvan_report_stats(void);
+	BDD sylvan_makenode(BDDVAR level, BDD low, BDD high);
+	BDD sylvan_ithvar(BDDVAR level);
+	BDDVAR sylvan_var(BDD bdd);
+	BDD sylvan_low(BDD bdd);
+	BDD sylvan_high(BDD bdd);
+	BDD sylvan_makenode_nocomp(BDDVAR level, BDD low, BDD high);
+	BDD sylvan_bdd_to_nocomp(BDD bdd);
+	void sylvan_ite_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_ite *t);
+	BDD sylvan_ite_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDD arg_2, BDD arg_3, BDDVAR arg_4);
+	void sylvan_constrain_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_constrain *t);
+	BDD sylvan_constrain_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDD arg_2, BDDVAR arg_3);
+	void sylvan_restrict_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_restrict *t);
+	BDD sylvan_restrict_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDD arg_2, BDDVAR arg_3);
+	void sylvan_exists_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_exists *t);
+	BDD sylvan_exists_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDD arg_2, BDDVAR arg_3);
+	void sylvan_and_exists_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_and_exists *t);
+	BDD sylvan_and_exists_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDD arg_2, BDDSET arg_3, BDDVAR arg_4);
+	void sylvan_relnext_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_relnext *t);
+	BDD sylvan_relnext_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDD arg_2, BDDSET arg_3, BDDVAR arg_4);
+	void sylvan_relprev_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_relprev *t);
+	BDD sylvan_relprev_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDD arg_2, BDDSET arg_3, BDDVAR arg_4);
+	void sylvan_compose_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_compose *t);
+	BDD sylvan_compose_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDDMAP arg_2, BDDVAR arg_3);
+	void sylvan_nodecount_levels_do_1(BDD bdd, uint32_t *variables);
+	void sylvan_nodecount_levels_do_2(BDD bdd);
+	void sylvan_nodecount_levels(BDD bdd, uint32_t *variables);
+	uint64_t sylvan_nodecount_do_1(BDD a);
+	void sylvan_nodecount_do_2(BDD a);
+	size_t sylvan_nodecount(BDD a);
+	void sylvan_pathcount_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_pathcount *t);
+	long double sylvan_pathcount_CALL(WorkerP *w, Task *__dq_head, BDD arg_1);
+	void sylvan_satcount_cached_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_satcount_cached *t);
+	sylvan_satcount_double_t sylvan_satcount_cached_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDDSET arg_2, BDDVAR arg_3);
+	void sylvan_satcount_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_satcount *t);
+	long double sylvan_satcount_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDD arg_2);
+	int sylvan_sat_one(BDD bdd, BDDVAR *vars, size_t cnt, char *str);
+	BDD sylvan_sat_one_bdd(BDD bdd);
+	BDD sylvan_cube(BDDSET vars, char *cube);
+	void sylvan_union_cube_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_union_cube *t);
+	BDD sylvan_union_cube_CALL(WorkerP *w, Task *__dq_head, BDD arg_1, BDDSET arg_2, char *arg_3);
+	int sylvan_set_in(BDDSET set, BDDVAR level);
+	size_t sylvan_set_count(BDDSET set);
+	void sylvan_set_toarray(BDDSET set, BDDVAR *arr);
+	void sylvan_set_fromarray_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_set_fromarray *t);
+	BDDSET sylvan_set_fromarray_CALL(WorkerP *w, Task *__dq_head, BDDVAR *arg_1, size_t arg_2);
+	void sylvan_test_isset(BDDSET set);
+	BDDMAP sylvan_map_add(BDDMAP map, BDDVAR key, BDD value);
+	BDDMAP sylvan_map_addall(BDDMAP map_1, BDDMAP map_2);
+	BDDMAP sylvan_map_remove(BDDMAP map, BDDVAR key);
+	BDDMAP sylvan_map_removeall(BDDMAP map, BDDMAP toremove);
+	int sylvan_map_in(BDDMAP map, BDDVAR key);
+	size_t sylvan_map_count(BDDMAP map);
+	BDDMAP sylvan_set_to_map(BDDSET set, BDD value);
+	void sylvan_support_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_support *t);
+	BDD sylvan_support_CALL(WorkerP *w, Task *__dq_head, BDD arg_1);
+	void sylvan_fprint(FILE *f, BDD bdd);
+	void sylvan_print(BDD bdd);
+	void sylvan_fprintdot(FILE *out, BDD bdd);
+	void sylvan_printdot(BDD bdd);
+	void sylvan_fprintdot_nocomp(FILE *out, BDD bdd);
+	void sylvan_printdot_nocomp(BDD bdd);
+	size_t sylvan_serialize_add(BDD bdd);
+	void sylvan_serialize_reset(void);
+	size_t sylvan_serialize_get(BDD bdd);
+	BDD sylvan_serialize_get_reversed(size_t value);
+	void sylvan_serialize_totext(FILE *out);
+	void sylvan_serialize_tofile(FILE *out);
+	void sylvan_serialize_fromfile(FILE *in);
+	void sylvan_printsha(BDD bdd);
+	void sylvan_fprintsha(FILE *f, BDD bdd);
+	void sylvan_getsha(BDD bdd, char *target);
+	void sylvan_test_isbdd(BDD bdd);
+	/* ../src/sylvan_common.c */
+	llmsset_t __sylvan_get_internal_data(void);
+	void sylvan_table_usage_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_table_usage *t);
+	void sylvan_table_usage_CALL(WorkerP *w, Task *__dq_head, size_t *arg_1, size_t *arg_2);
+	void sylvan_gc_add_mark(int order, gc_mark_cb cb);
+	void sylvan_gc_set_hook(gc_hook_cb new_hook);
+	void sylvan_gc_enable(void);
+	void sylvan_gc_disable(void);
+	void sylvan_gc_mark_cache_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_gc_mark_cache *t);
+	void sylvan_gc_mark_cache_CALL(WorkerP *w, Task *__dq_head);
+	size_t next_size(size_t n);
+	void sylvan_gc_default_hook_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_gc_default_hook *t);
+	void sylvan_gc_default_hook_CALL(WorkerP *w, Task *__dq_head);
+	void sylvan_gc_call_hook_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_gc_call_hook *t);
+	void sylvan_gc_call_hook_CALL(WorkerP *w, Task *__dq_head);
+	void sylvan_gc_rehash_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_gc_rehash *t);
+	void sylvan_gc_rehash_CALL(WorkerP *w, Task *__dq_head);
+	void sylvan_gc_go_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_gc_go *t);
+	void sylvan_gc_go_CALL(WorkerP *w, Task *__dq_head);
+	void sylvan_gc_WRAP(WorkerP *w, Task *__dq_head, TD_sylvan_gc *t);
+	void sylvan_gc_CALL(WorkerP *w, Task *__dq_head);
+	void sylvan_init_package(size_t tablesize, size_t maxsize, size_t cachesize, size_t max_cachesize);
+	void sylvan_register_quit(quit_cb cb);
+	void sylvan_quit(void);
+	/* ../src/sylvan_ldd.c */
+	void lddmc_gc_mark_rec_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_gc_mark_rec *t);
+	void lddmc_gc_mark_rec_CALL(WorkerP *w, Task *__dq_head, MDD arg_1);
+	MDD lddmc_ref(MDD a);
+	void lddmc_deref(MDD a);
+	size_t lddmc_count_refs(void);
+	void lddmc_gc_mark_external_refs_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_gc_mark_external_refs *t);
+	void lddmc_gc_mark_external_refs_CALL(WorkerP *w, Task *__dq_head);
+	void lddmc_refs_mark_task_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_refs_mark_task *t);
+	void lddmc_refs_mark_task_CALL(WorkerP *w, Task *__dq_head);
+	void lddmc_refs_mark_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_refs_mark *t);
+	void lddmc_refs_mark_CALL(WorkerP *w, Task *__dq_head);
+	void lddmc_refs_init_task_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_refs_init_task *t);
+	void lddmc_refs_init_task_CALL(WorkerP *w, Task *__dq_head);
+	void lddmc_refs_init_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_refs_init *t);
+	void lddmc_refs_init_CALL(WorkerP *w, Task *__dq_head);
+	void sylvan_init_ldd(void);
+	MDD lddmc_makenode(uint32_t value, MDD ifeq, MDD ifneq);
+	MDD lddmc_make_copynode(MDD ifeq, MDD ifneq);
+	MDD lddmc_extendnode(MDD mdd, uint32_t value, MDD ifeq);
+	uint32_t lddmc_getvalue(MDD mdd);
+	MDD lddmc_getdown(MDD mdd);
+	MDD lddmc_getright(MDD mdd);
+	MDD lddmc_follow(MDD mdd, uint32_t value);
+	int lddmc_iscopy(MDD mdd);
+	MDD lddmc_followcopy(MDD mdd);
+	void lddmc_union_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_union *t);
+	MDD lddmc_union_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2);
+	void lddmc_minus_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_minus *t);
+	MDD lddmc_minus_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2);
+	void lddmc_zip_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_zip *t);
+	MDD lddmc_zip_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2, MDD *arg_3);
+	void lddmc_intersect_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_intersect *t);
+	MDD lddmc_intersect_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2);
+	void lddmc_match_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_match *t);
+	MDD lddmc_match_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2, MDD arg_3);
+	void lddmc_relprod_help_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_relprod_help *t);
+	MDD lddmc_relprod_help_CALL(WorkerP *w, Task *__dq_head, uint32_t arg_1, MDD arg_2, MDD arg_3, MDD arg_4);
+	void lddmc_relprod_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_relprod *t);
+	MDD lddmc_relprod_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2, MDD arg_3);
+	void lddmc_relprod_union_help_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_relprod_union_help *t);
+	MDD lddmc_relprod_union_help_CALL(WorkerP *w, Task *__dq_head, uint32_t arg_1, MDD arg_2, MDD arg_3, MDD arg_4, MDD arg_5);
+	void lddmc_relprod_union_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_relprod_union *t);
+	MDD lddmc_relprod_union_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2, MDD arg_3, MDD arg_4);
+	void lddmc_relprev_help_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_relprev_help *t);
+	MDD lddmc_relprev_help_CALL(WorkerP *w, Task *__dq_head, uint32_t arg_1, MDD arg_2, MDD arg_3, MDD arg_4, MDD arg_5);
+	void lddmc_relprev_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_relprev *t);
+	MDD lddmc_relprev_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2, MDD arg_3, MDD arg_4);
+	void lddmc_join_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_join *t);
+	MDD lddmc_join_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2, MDD arg_3, MDD arg_4);
+	void lddmc_project_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_project *t);
+	MDD lddmc_project_CALL(WorkerP *w, Task *__dq_head, const MDD arg_1, const MDD arg_2);
+	void lddmc_project_minus_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_project_minus *t);
+	MDD lddmc_project_minus_CALL(WorkerP *w, Task *__dq_head, const MDD arg_1, const MDD arg_2, MDD arg_3);
+	MDD lddmc_union_cube(MDD a, uint32_t *values, size_t count);
+	MDD lddmc_union_cube_copy(MDD a, uint32_t *values, int *copy, size_t count);
+	int lddmc_member_cube(MDD a, uint32_t *values, size_t count);
+	int lddmc_member_cube_copy(MDD a, uint32_t *values, int *copy, size_t count);
+	MDD lddmc_cube(uint32_t *values, size_t count);
+	MDD lddmc_cube_copy(uint32_t *values, int *copy, size_t count);
+	void lddmc_nodecount_levels(MDD mdd, size_t *variables);
+	size_t lddmc_nodecount(MDD mdd);
+	void lddmc_satcount_cached_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_satcount_cached *t);
+	lddmc_satcount_double_t lddmc_satcount_cached_CALL(WorkerP *w, Task *__dq_head, MDD arg_1);
+	void lddmc_satcount_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_satcount *t);
+	long double lddmc_satcount_CALL(WorkerP *w, Task *__dq_head, MDD arg_1);
+	void lddmc_collect_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_collect *t);
+	MDD lddmc_collect_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, lddmc_collect_cb arg_2, void *arg_3, uint32_t *arg_4, size_t arg_5);
+	void _lddmc_sat_all_nopar_WRAP(WorkerP *w, Task *__dq_head, TD__lddmc_sat_all_nopar *t);
+	void _lddmc_sat_all_nopar_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, lddmc_enum_cb arg_2, void *arg_3, uint32_t *arg_4, size_t arg_5);
+	void lddmc_sat_all_nopar_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_sat_all_nopar *t);
+	void lddmc_sat_all_nopar_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, lddmc_enum_cb arg_2, void *arg_3);
+	void lddmc_sat_all_par_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_sat_all_par *t);
+	void lddmc_sat_all_par_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, lddmc_enum_cb arg_2, void *arg_3, uint32_t *arg_4, size_t arg_5);
+	void lddmc_match_sat_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_match_sat *t);
+	void lddmc_match_sat_CALL(WorkerP *w, Task *__dq_head, struct lddmc_match_sat_info *arg_1, lddmc_enum_cb arg_2, void *arg_3);
+	void lddmc_match_sat_par_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_match_sat_par *t);
+	void lddmc_match_sat_par_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, MDD arg_2, MDD arg_3, lddmc_enum_cb arg_4, void *arg_5);
+	int lddmc_sat_one(MDD mdd, uint32_t *values, size_t count);
+	MDD lddmc_sat_one_mdd(MDD mdd);
+	void lddmc_compose_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_compose *t);
+	MDD lddmc_compose_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, lddmc_compose_cb arg_2, void *arg_3, int arg_4);
+	void lddmc_visit_seq_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_visit_seq *t);
+	void lddmc_visit_seq_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, lddmc_visit_callbacks_t *arg_2, size_t arg_3, void *arg_4);
+	void lddmc_visit_par_WRAP(WorkerP *w, Task *__dq_head, TD_lddmc_visit_par *t);
+	void lddmc_visit_par_CALL(WorkerP *w, Task *__dq_head, MDD arg_1, lddmc_visit_callbacks_t *arg_2, size_t arg_3, void *arg_4);
+	void lddmc_fprintdot(FILE *out, MDD mdd);
+	void lddmc_printdot(MDD mdd);
+	void lddmc_fprint(FILE *f, MDD mdd);
+	void lddmc_print(MDD mdd);
+	size_t lddmc_serialize_add(MDD mdd);
+	void lddmc_serialize_reset(void);
+	size_t lddmc_serialize_get(MDD mdd);
+	MDD lddmc_serialize_get_reversed(size_t value);
+	void lddmc_serialize_totext(FILE *out);
+	void lddmc_serialize_tofile(FILE *out);
+	void lddmc_serialize_fromfile(FILE *in);
+	void lddmc_printsha(MDD mdd);
+	void lddmc_fprintsha(FILE *out, MDD mdd);
+	void lddmc_getsha(MDD mdd, char *target);
+	size_t lddmc_test_ismdd(MDD mdd);
+}

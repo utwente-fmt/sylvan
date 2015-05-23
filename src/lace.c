@@ -35,7 +35,7 @@
 #include <hwloc.h>
 #endif
 
-// public Worker data
+// _public Worker data
 static Worker **workers;
 static size_t default_stacksize = 0; // set by lace_init
 static size_t default_dqsize = 100000;
@@ -269,14 +269,14 @@ lace_init_worker(int worker, size_t dq_size)
     }
 #endif
 
-    // Initialize public worker data
+    // Initialize _public worker data
     wt->dq = w->dq;
     wt->ts.v = 0;
     wt->allstolen = 0;
     wt->movesplit = 0;
 
     // Initialize private worker data
-    w->public = wt;
+    w->_public = wt;
     w->end = w->dq + dq_size;
     w->split = w->dq;
     w->allstolen = 0;
@@ -759,7 +759,7 @@ lace_exec_in_new_frame(WorkerP *__lace_worker, Task *__lace_dq_head, Task *root)
 
     // save old tail, split, allstolen and initiate new frame
     {
-        Worker *wt = __lace_worker->public;
+        Worker *wt = __lace_worker->_public;
 
         old_as = wt->allstolen;
         wt->allstolen = 1;
@@ -789,7 +789,7 @@ lace_exec_in_new_frame(WorkerP *__lace_worker, Task *__lace_dq_head, Task *root)
 
     // restore tail, split, allstolen
     {
-        Worker *wt = __lace_worker->public;
+        Worker *wt = __lace_worker->_public;
         wt->allstolen = old_as;
         wt->ts.v = old.v;
         __lace_worker->split = __lace_worker->dq + old.ts.split;

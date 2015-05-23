@@ -52,6 +52,7 @@ set(sylvan_sources
     src/lace.c
     src/lace.h
     src/hash16.h
+    src/hash16.c
     src/getrss.h
     src/getrss.c
     src/sylvan_common.h
