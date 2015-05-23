@@ -44,6 +44,10 @@
 #ifndef SYLVAN_H
 #define SYLVAN_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 #ifndef SYLVAN_SIZE_FIBONACCI
 #define SYLVAN_SIZE_FIBONACCI 0
 #endif
@@ -140,9 +144,21 @@ void sylvan_gc_set_hook(gc_hook_cb new_hook);
  * Global variables (number of workers, nodes table)
  */
 
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 #include <llmsset.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 extern llmsset_t nodes;
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #include <cache.h>
 
