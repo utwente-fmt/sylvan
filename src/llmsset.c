@@ -17,6 +17,7 @@
 #include <sylvan_config.h>
 
 #include <assert.h> // for assert
+#include <errno.h>  // for errno
 #include <stdint.h> // for uint64_t etc
 #include <stdio.h>  // for printf
 #include <stdlib.h>
@@ -319,7 +320,7 @@ llmsset_create(size_t initial_size, size_t max_size)
     dbs->table = (uint64_t*)mmap(0, dbs->max_size * 8, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, 0, 0);
     dbs->data = (uint8_t*)mmap(0, dbs->max_size * 16, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, 0, 0);
     if (dbs->table == (uint64_t*)-1 || dbs->data == (uint8_t*)-1) {
-        fprintf(stderr, "llmsset_create: Unable to allocate memory!\n");
+        fprintf(stderr, "llmsset_create: Unable to allocate memory: %s!\n", strerror(errno));
         exit(1);
     }
 
