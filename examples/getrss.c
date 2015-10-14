@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <sys/resource.h>
 #include <mach/mach.h>
-#elif defined(__linux__) || defined(__linux) || defined(linux) || defined(__gnu_linux__)
+#elif defined(__OpenBSD__) || defined(__linux__) || defined(__linux) || defined(linux) || defined(__gnu_linux__)
 #include <unistd.h>
 #include <sys/resource.h>
 #include <stdio.h>
