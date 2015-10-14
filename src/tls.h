@@ -8,13 +8,13 @@
 #ifndef TLS_H
 #define TLS_H
 
-#ifdef __ELF__ // use gcc thread-local storage (i.e. __thread variables)
+#ifdef __LINUX__ // use gcc thread-local storage (i.e. __thread variables)
 #define DECLARE_THREAD_LOCAL(name, type) __thread type name
 #define INIT_THREAD_LOCAL(name)
 #define SET_THREAD_LOCAL(name, value) name = value
 #define LOCALIZE_THREAD_LOCAL(name, type)
 
-#else//!__ELF__
+#else//!__LINUX__
 
 #include <pthread.h>
 
