@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <assert.h>
 
-#include <lace.h>
+#include "lace.h"
 
 #ifndef USE_HWLOC
 #define USE_HWLOC 0

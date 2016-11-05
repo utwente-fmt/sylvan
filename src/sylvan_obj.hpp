@@ -20,8 +20,8 @@
 #include <string>
 #include <vector>
 
-#include <lace.h>
-#include <sylvan.h>
+#include "lace.h"
+#include "sylvan.h"
 
 namespace sylvan {
 

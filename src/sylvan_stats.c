@@ -17,11 +17,11 @@
 
 #include <errno.h>  // for errno
 #include <string.h> // memset
-#include <sylvan_stats.h>
+#include "sylvan_stats.h"
 #include <sys/mman.h>
 #include <inttypes.h>
 
-#include <sylvan_int.h>
+#include "sylvan_int.h"
 
 #if SYLVAN_STATS
 

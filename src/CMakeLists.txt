@@ -38,6 +38,8 @@ add_library(sylvan
 
 target_link_libraries(sylvan m pthread gmp)
 
+target_include_directories(sylvan PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
 if(UNIX AND NOT APPLE)
     target_link_libraries(sylvan rt)
 endif()

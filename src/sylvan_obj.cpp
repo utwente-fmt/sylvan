@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include <sylvan_obj.hpp>
+#include "sylvan_obj.hpp"
 
 using namespace sylvan;
 

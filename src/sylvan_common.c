@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include <sylvan_int.h>
+#include "sylvan_int.h"
 
 #ifndef cas
 #define cas(ptr, old, new) (__sync_bool_compare_and_swap((ptr),(old),(new)))

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include <sylvan_config.h>
+#include "sylvan_config.h"
 
 #include <assert.h>
 #include <inttypes.h>
@@ -26,10 +26,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <sylvan.h>
-#include <sylvan_int.h>
+#include "sylvan.h"
+#include "sylvan_int.h"
 
-#include <avl.h>
+#include "avl.h"
 
 static int granularity = 1; // default
 

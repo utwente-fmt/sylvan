@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include <sylvan.h>
-#include <sylvan_obj.hpp>
+#include "sylvan.h"
+#include "sylvan_obj.hpp"
 
 using namespace sylvan;
 
