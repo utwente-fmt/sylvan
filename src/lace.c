@@ -562,12 +562,18 @@ static void*
 lace_default_worker(void* arg)
 {
     lace_init_worker((size_t)arg, 0);
+    lace_run_default_worker();
+    return NULL;
+}
+
+void
+lace_run_default_worker()
+{
     WorkerP *__lace_worker = lace_get_worker();
     Task *__lace_dq_head = __lace_worker->dq;
     lace_steal_loop(&lace_quits);
     lace_time_event(__lace_worker, 9);
     lace_barrier();
-    return NULL;
 }
 
 pthread_t
