@@ -18,6 +18,8 @@
 #ifndef SYLVAN_COMMON_H
 #define SYLVAN_COMMON_H
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -41,6 +43,12 @@ extern "C" {
  * Reasonable defaults: datasize of 1L<<26 (2048 MB), cachesize of 1L<<25 (1152 MB)
  */
 void sylvan_init_package(size_t initial_tablesize, size_t max_tablesize, size_t initial_cachesize, size_t max_cachesize);
+
+/* Returns if the sylvan package is running */
+inline bool sylvan_package_is_running() {
+	extern bool _is_running;
+	return _is_running;
+}
 
 /**
  * Frees all Sylvan data (also calls the quit() functions of BDD/LDD parts)
