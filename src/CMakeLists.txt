@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.9)
 project(sylvan C CXX)
 
 add_library(sylvan
@@ -39,6 +39,10 @@ add_library(sylvan
 target_link_libraries(sylvan m pthread gmp)
 
 target_include_directories(sylvan PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64")
+    set_target_properties(sylvan PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+endif()
 
 if(UNIX AND NOT APPLE)
     target_link_libraries(sylvan rt)
