@@ -274,7 +274,7 @@ llmsset_t nodes;
 /**
  * Initializes Sylvan.
  */
-bool _is_running = false;
+int _is_running = 0;
 void
 sylvan_init_package(size_t tablesize, size_t maxsize, size_t cachesize, size_t max_cachesize)
 {
@@ -301,7 +301,7 @@ sylvan_init_package(size_t tablesize, size_t maxsize, size_t cachesize, size_t m
 
     LACE_ME;
     sylvan_stats_init();
-    _is_running = true;
+    _is_running = 1;
 }
 
 struct reg_quit_entry
@@ -324,7 +324,7 @@ sylvan_register_quit(quit_cb cb)
 void
 sylvan_quit()
 {
-    _is_running = false;
+    _is_running = 0;
     while (quit_register != NULL) {
         struct reg_quit_entry *e = quit_register;
         quit_register = e->next;

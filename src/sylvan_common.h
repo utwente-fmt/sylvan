@@ -18,8 +18,6 @@
 #ifndef SYLVAN_COMMON_H
 #define SYLVAN_COMMON_H
 
-#include <stdbool.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -45,8 +43,8 @@ extern "C" {
 void sylvan_init_package(size_t initial_tablesize, size_t max_tablesize, size_t initial_cachesize, size_t max_cachesize);
 
 /* Returns if the sylvan package is running */
-inline bool sylvan_package_is_running() {
-	extern bool _is_running;
+static inline int sylvan_package_is_running() {
+	extern int _is_running;
 	return _is_running;
 }
 
