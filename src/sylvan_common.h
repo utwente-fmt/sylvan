@@ -42,6 +42,12 @@ extern "C" {
  */
 void sylvan_init_package(size_t initial_tablesize, size_t max_tablesize, size_t initial_cachesize, size_t max_cachesize);
 
+/* Returns if the sylvan package is running */
+static inline int sylvan_package_is_running() {
+	extern int _is_running;
+	return _is_running;
+}
+
 /**
  * Frees all Sylvan data (also calls the quit() functions of BDD/LDD parts)
  */

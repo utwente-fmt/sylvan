@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-#include <sylvan_config.h>
+#include "sylvan_config.h"
 
 #include <stdint.h>
 #include <unistd.h>
 
-#include <lace.h>
+#include "lace.h"
 
 #ifndef LLMSSET_H
 #define LLMSSET_H

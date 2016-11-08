@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-#include <sylvan_int.h>
+#include "sylvan_int.h"
 
 #include <assert.h>
 #include <math.h>
 #include <string.h>
 
-#include <sylvan_gmp.h>
+#include "sylvan_gmp.h"
 #include <gmp.h>
 
 static uint32_t gmp_type;

@@ -24,17 +24,17 @@
  * Lace must be initialized before initializing Sylvan
  */
 
-#include <sylvan_config.h>
+#include "sylvan_config.h"
 
 #include <stdint.h>
 #include <stdio.h> // for FILE
 #include <stdlib.h> // for realloc
 
-#include <lace.h>
-#include <tls.h>
+#include "lace.h"
+#include "tls.h"
 
-#include <sylvan_common.h>
-#include <sylvan_stats.h>
-#include <sylvan_mtbdd.h>
-#include <sylvan_bdd.h>
-#include <sylvan_ldd.h>
+#include "sylvan_common.h"
+#include "sylvan_stats.h"
+#include "sylvan_mtbdd.h"
+#include "sylvan_bdd.h"
+#include "sylvan_ldd.h"

@@ -11,8 +11,8 @@
 #endif
 
 #include <getrss.h>
-#include <sylvan.h>
-#include <llmsset.h>
+#include "sylvan.h"
+#include "llmsset.h"
 
 /* Configuration */
 static int report_levels = 0; // report states at start of every level

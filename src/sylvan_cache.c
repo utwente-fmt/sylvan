@@ -22,7 +22,7 @@
 #include <string.h> // for strerror
 #include <sys/mman.h> // for mmap
 
-#include <sylvan_cache.h>
+#include "sylvan_cache.h"
 
 #ifndef MAP_ANONYMOUS
 #define MAP_ANONYMOUS MAP_ANON

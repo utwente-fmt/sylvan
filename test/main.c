@@ -12,7 +12,7 @@
 #include <assert.h>
 #include "test_assert.h"
 
-#include <sylvan_int.h>
+#include "sylvan_int.h"
 
 #define BLACK "\33[22;30m"
 #define GRAY "\33[01;30m"

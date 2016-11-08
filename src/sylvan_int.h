@@ -19,11 +19,11 @@
  * Internals of Sylvan
  */
 
-#include <sylvan.h>
+#include "sylvan.h"
 
-#include <sylvan_cache.h>
-#include <llmsset.h>
-#include <sylvan_stats.h>
+#include "sylvan_cache.h"
+#include "llmsset.h"
+#include "sylvan_stats.h"
 
 #ifndef SYLVAN_INT_H
 #define SYLVAN_INT_H
@@ -94,7 +94,7 @@ extern llmsset_t nodes;
 }
 #endif /* __cplusplus */
 
-#include <sylvan_mtbdd_int.h>
-#include <sylvan_ldd_int.h>
+#include "sylvan_mtbdd_int.h"
+#include "sylvan_ldd_int.h"
 
 #endif

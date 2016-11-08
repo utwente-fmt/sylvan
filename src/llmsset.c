@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include <sylvan_config.h>
+#include "sylvan_config.h"
 
 #include <errno.h>  // for errno
 #include <stdint.h> // for uint64_t etc
@@ -24,9 +24,9 @@
 #include <string.h> // memset
 #include <sys/mman.h> // for mmap
 
-#include <llmsset.h>
-#include <sylvan_stats.h>
-#include <tls.h>
+#include "llmsset.h"
+#include "sylvan_stats.h"
+#include "tls.h"
 
 #ifndef USE_HWLOC
 #define USE_HWLOC 0

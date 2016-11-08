@@ -265,6 +265,9 @@ void lace_init_worker(int idx, size_t dqsize);
  */
 pthread_t lace_spawn_worker(int idx, size_t stacksize, void *(*fun)(void*), void* arg);
 
+/* Run a default loop worker */
+void lace_run_default_worker();
+
 /**
  * Steal a random task.
  */

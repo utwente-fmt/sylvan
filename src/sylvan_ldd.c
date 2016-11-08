@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include <sylvan_config.h>
+#include "sylvan_config.h"
 
 #include <assert.h>
 #include <inttypes.h>
@@ -26,12 +26,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <sylvan.h>
-#include <sylvan_int.h>
+#include "sylvan.h"
+#include "sylvan_int.h"
 
-#include <avl.h>
-#include <sylvan_refs.h>
-#include <sha2.h>
+#include "avl.h"
+#include "sylvan_refs.h"
+#include "sha2.h"
 
 /**
  * Implementation of garbage collection
