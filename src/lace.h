@@ -35,6 +35,10 @@
 #  endif
 #endif
 
+#if __cplusplus >= 199711L
+#define register
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
