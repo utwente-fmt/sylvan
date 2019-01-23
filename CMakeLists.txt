@@ -49,7 +49,7 @@ if(WITH_COVERAGE)
     )
 endif()
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 include(GNUInstallDirs)
 include(CTest)
 
