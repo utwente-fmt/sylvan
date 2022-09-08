@@ -43,6 +43,10 @@
 #define LACE_USE_HWLOC 0
 #define LACE_USE_MMAP 1
 
+#if __cplusplus >= 199711L
+#define register
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
